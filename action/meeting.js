@@ -56,7 +56,7 @@ export async function cancelMeeting(meetingId) {
     throw new Error("Unauthorized");
   }
 
-  const user = await db.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: { clerkUserId: userId },
   });
 
@@ -75,7 +75,7 @@ export async function cancelMeeting(meetingId) {
 
   const { data } = await (
     await clerkClient()
-  ).users.getUserOauthAccessToken(event.user.clerkUserId, "oauth_google");
+  ).users.getUserOauthAccessToken(meeting.user.clerkUserId, "oauth_google");
 
   const token = data[0]?.token;
 
@@ -93,7 +93,7 @@ export async function cancelMeeting(meetingId) {
     console.error("Failed to delete event from Google Calendar:", error);
   }
 
-  await db.booking.delete({
+  await prisma.booking.delete({
     where: { id: meetingId },
   });
 

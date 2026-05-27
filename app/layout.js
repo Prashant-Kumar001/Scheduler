@@ -20,7 +20,8 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className="scroll-smooth hide-scroll "
+      className="hide-scroll "
+      data-scroll-behavior="smooth"
       suppressContentEditableWarning
       suppressHydrationWarning
     >

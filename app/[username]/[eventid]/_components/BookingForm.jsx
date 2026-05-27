@@ -40,7 +40,7 @@ const BookingForm = ({ availability, event }) => {
     defaultValues: {
       name: "",
       email: "",
-      message: "",
+      additionalInfo: "",
     },
   });
   const { data: booking, loading, error, fn } = useFetch(createBooking);
@@ -59,6 +59,8 @@ const BookingForm = ({ availability, event }) => {
       return;
     }
 
+    console.log("form data", data);
+
     console.log({
       ...data,
       date: formattedDate,
@@ -76,10 +78,15 @@ const BookingForm = ({ availability, event }) => {
       email: data.email,
       startTime: startTime.toISOString(),
       endTime: endTime.toISOString(),
-      message: data.message,
+      message: data.additionalInfo,
     };
 
-    await fn(bookingData);
+    console.log(bookingData);
+
+    // await fn(bookingData);
+
+    console.log(booking);
+
     if (booking) {
       return (
         <div className="text-center mt-10">
@@ -202,7 +209,8 @@ const BookingForm = ({ availability, event }) => {
 
               <div>
                 <Textarea
-                  {...register("message")}
+                  {...register("additionalInfo")}
+                  type="text"
                   placeholder="Your Message"
                   className="mb-2"
                 />
